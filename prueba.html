@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.js"></script>
+    <script src="http://static.robotwebtools.org/roslibjs/current/roslib.js"></script>
+        <script>
+            var ros = new ROSLIB.Ros({
+            url : 'ws://localhost:9090'
+            });
+        
+            var fibonacciClient = new ROSLIB.ActionClient({
+            ros : ros,
+            serverName : '/fibonacci',
+            actionName : 'actionlib_tutorials/FibonacciAction'
+            });
+        
+            var goal = new ROSLIB.Goal({
+            actionClient : fibonacciClient,
+            goalMessage : {
+                order : 7
+            }
+            });
+        
+            goal.on('feedback', function(feedback) {
+            console.log('Feedback: ' + feedback.sequence);
+            });
+        
+            goal.on('result', function(result) {
+            console.log('Final Result: ' + result.sequence);
+            });
+        
+            ros.on('connection', function() {
+            console.log('Connected to websocket server.');
+            });
+        
+            ros.on('error', function(error) {
+            console.log('Error connecting to websocket server: ', error);
+            });
+        
+            ros.on('close', function() {
+            console.log('Connection to websocket server closed.');
+            });
+        
+            goal.send();
+        </script>
+</head>
+<body>
+    <script>
+
+    </script>
+</body>
+</html>
