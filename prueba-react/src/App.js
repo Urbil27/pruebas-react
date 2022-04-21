@@ -1,17 +1,20 @@
 import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import Holamundo from './Holamundo'
 function App() {
-  let nombre = prompt("Escribe tu nombre:")
+
   return (
-      hola(nombre)
+      <div>
+        <Holamundo/>
+        <Holamundo/>
+        <Holamundo/>
+      </div>
+
+
+
 
   );
 }
-function hola(nom){
 
-
-  let contenido = <h1>Hola {nom}</h1>;
-  return (contenido);
-}
 export default App;
